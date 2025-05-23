@@ -1,0 +1,60 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user {
+  margin-top: auto;
+  font-size: 14px;
+}
+
+.status {
+  color: limegreen;
+}
+.logoutButton {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.logoutButton:hover {
+  background-color: #c0392b;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+}
+@media (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

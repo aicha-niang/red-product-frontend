@@ -1,0 +1,36 @@
+.header {
+  background-color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.search {
+  padding: 8px 12px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.icons {
+  display: flex;
+  gap: 16px;
+}
+
+.icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+}
+@media (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

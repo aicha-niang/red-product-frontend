@@ -1,0 +1,17 @@
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+}
