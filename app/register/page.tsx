@@ -18,7 +18,7 @@ export default function RegisterPage() {
   const password = (form.elements.namedItem("password") as HTMLInputElement).value;
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/register", { // <- ici
+    const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/auth/register", { // <- ici
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
