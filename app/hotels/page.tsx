@@ -22,7 +22,8 @@ export default function ListeDesHotels() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/hotels');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hotels`);
+
         const data = await res.json();
         setHotels(data);
         setFilteredHotels(data);
