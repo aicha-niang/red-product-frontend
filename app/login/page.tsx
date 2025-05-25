@@ -7,7 +7,7 @@ import styles from "@/styles/login.module.css";
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👁️ état pour afficher/cacher le mot de passe
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +22,7 @@ export default function LoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: "include", // ✅ autorise les cookies cross-origin
       });
 
       if (!res.ok) {
@@ -30,9 +31,7 @@ export default function LoginPage() {
         return;
       }
 
-      const data = await res.json();
-      document.cookie = `token=${data.token}; path=/;`; // ✅ stocke le token
-      router.push("/dashboard"); // ✅ redirection
+      router.push("/dashboard"); // ✅ redirection après succès
     } catch (err) {
       setError("Erreur serveur");
     }
@@ -80,7 +79,6 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* ✅ Lien mot de passe oublié */}
           <div style={{ textAlign: "right", marginTop: "-10px", marginBottom: "12px" }}>
             <a href="/forgot-password" className={styles.forgotLink}>Mot de passe oublié ?</a>
           </div>
