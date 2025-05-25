@@ -22,7 +22,7 @@ export default function ListeDesHotels() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/hotels');
+        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/hotels');
         const data = await res.json();
         setHotels(data);
         setFilteredHotels(data);
@@ -70,7 +70,7 @@ export default function ListeDesHotels() {
                 price={hotel.price}
                 imageUrl={
                   hotel.image
-                    ? `http://localhost:5000/uploads/${hotel.image}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}/uploads/${hotel.image}`
                     : '/images/default.jpg'
                 }
               />

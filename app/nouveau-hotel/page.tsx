@@ -37,7 +37,7 @@ export default function CreateHotelPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/hotels', {
+      const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/hotels', {
         method: 'POST',
         body: data,
       });
@@ -65,7 +65,7 @@ export default function CreateHotelPage() {
 
  const handleDelete = async (id: string) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/hotels/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hotels/${id}`, {
       method: 'DELETE',
     });
 
