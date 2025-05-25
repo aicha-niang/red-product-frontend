@@ -14,6 +14,8 @@ type Hotel = {
   image?: string;
 };
 
+const backendURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'; // Valeur de secours
+
 export default function ListeDesHotels() {
   const [search, setSearch] = useState('');
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -22,8 +24,9 @@ export default function ListeDesHotels() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hotels`);
-
+        const res = await fetch(`${backendURL}/api/hotels`, {
+          credentials: 'include', // utile si tu utilises les cookies
+        });
         const data = await res.json();
         setHotels(data);
         setFilteredHotels(data);
@@ -71,7 +74,7 @@ export default function ListeDesHotels() {
                 price={hotel.price}
                 imageUrl={
                   hotel.image
-                    ? `${process.env.NEXT_PUBLIC_API_URL}/uploads/${hotel.image}`
+                    ? `${backendURL}/uploads/${hotel.image}`
                     : '/images/default.jpg'
                 }
               />
