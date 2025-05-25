@@ -18,12 +18,12 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/auth/me', {
-          credentials: 'include', // 🔐 pour envoyer les cookies (avec le token)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`, {
+          credentials: 'include', // 🔐 pour envoyer les cookies (token)
         });
 
         if (!res.ok) {
-          router.push('/login'); // 🚫 si pas connecté → rediriger vers login
+          router.push('/login'); // 🚫 Redirige si pas connecté
           return;
         }
 
@@ -38,10 +38,10 @@ export default function ProfilePage() {
     };
 
     fetchUser();
-  }, []);
+  }, [router]);
 
   const handleLogout = () => {
-    // Supprime le cookie JWT côté client (le backend peut le gérer aussi)
+    // Supprime le cookie JWT
     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     router.push('/login');
   };
@@ -80,7 +80,18 @@ export default function ProfilePage() {
       <p><strong>Email :</strong> {user.email}</p>
       <p><strong>ID :</strong> {user._id}</p>
 
-      <button onClick={handleLogout} style={{ marginTop: '1rem', padding: '0.5rem 1rem' }}>
+      <button
+        onClick={handleLogout}
+        style={{
+          marginTop: '1rem',
+          padding: '0.5rem 1rem',
+          backgroundColor: '#d00',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
         Se déconnecter
       </button>
     </div>

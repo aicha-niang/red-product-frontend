@@ -7,15 +7,15 @@ export function middleware(req: NextRequest) {
 
   console.log("🔍 Middleware activé pour :", pathname);
 
-  // ✅ Liste des routes publiques
   const publicPaths = ['/', '/login', '/register', '/forgot-password', '/reset-password'];
-
-  // On vérifie si la route actuelle est dans la liste
   const isPublic = publicPaths.some((path) => pathname === path || pathname.startsWith(path + '/'));
 
-  // Si ce n’est pas une page publique et que l’utilisateur n’a pas de token => rediriger
   if (!isPublic && !token) {
     return NextResponse.redirect(new URL('/login', req.url));
+  }
+
+  if (isPublic && token && (pathname === '/login' || pathname === '/register')) {
+    return NextResponse.redirect(new URL('/dashboard', req.url));
   }
 
   return NextResponse.next();
@@ -23,7 +23,6 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    // ✅ Applique le middleware à toutes les routes sauf les fichiers statiques
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };

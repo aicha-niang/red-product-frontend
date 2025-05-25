@@ -10,28 +10,30 @@ export default function Dashboard() {
   const [userCount, setUserCount] = useState(0);
   const [hotelCount, setHotelCount] = useState(0);
 
-  // 🔁 Charger le nombre d’utilisateurs depuis l’API
- useEffect(() => {
-  const fetchStats = async () => {
-    try {
-      const [userRes, hotelRes] = await Promise.all([
-        fetch('http://localhost:5000/api/auth/users/count'),
-        fetch('http://localhost:5000/api/hotels/count'),
-      ]);
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [userRes, hotelRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/users/count`, {
+            credentials: 'include',
+          }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hotels/count`, {
+            credentials: 'include',
+          }),
+        ]);
 
-      const userData = await userRes.json();
-      const hotelData = await hotelRes.json();
+        const userData = await userRes.json();
+        const hotelData = await hotelRes.json();
 
-      setUserCount(userData.count);
-      setHotelCount(hotelData.count);
-    } catch (err) {
-      console.error('Erreur lors de la récupération des statistiques', err);
-    }
-  };
+        setUserCount(userData.count || 0);
+        setHotelCount(hotelData.count || 0);
+      } catch (err) {
+        console.error('Erreur lors de la récupération des statistiques', err);
+      }
+    };
 
-  fetchStats();
-}, []);
-
+    fetchStats();
+  }, []);
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -67,22 +69,23 @@ export default function Dashboard() {
             <StatCard title="Formulaires" value={125} color="#e91e63" icon="📝" link="/formulaires" />
             <StatCard title="E-mails" value={25} color="#2196f3" icon="📧" link="/emails" />
             <StatCard title="Messages" value={40} color="#4caf50" icon="💬" link="/messages" />
-            {/* 👇 Valeur dynamique ici */}
-            <StatCard
-  title="Utilisateurs"
-  value={userCount || 0}
-  color="#ff9800"
-  icon="👥"
-  link="/liste-des-utilisateurs"
-/>
 
-           <StatCard
-  title="Hôtels"
-  value={hotelCount || 0}
-  color="#9c27b0"
-  icon="🏨"
-  link="/hotels"
-/>
+            {/* Valeurs dynamiques */}
+            <StatCard
+              title="Utilisateurs"
+              value={userCount}
+              color="#ff9800"
+              icon="👥"
+              link="/liste-des-utilisateurs"
+            />
+            <StatCard
+              title="Hôtels"
+              value={hotelCount}
+              color="#9c27b0"
+              icon="🏨"
+              link="/hotels"
+            />
+
             <StatCard title="Entités" value={2} color="#009688" icon="🏢" link="/entites" />
           </section>
         </main>
